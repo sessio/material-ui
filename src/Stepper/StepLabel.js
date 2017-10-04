@@ -62,8 +62,8 @@ function StepLabel(props) {
   });
   const labelClassName = classNames({
     [classes.alternativeLabel]: alternativeLabel,
-    [classes.active]: active,
     [classes.completed]: completed,
+    [classes.active]: active,
   });
   const iconContainerClassName = classNames(
     {

@@ -15,14 +15,14 @@ export const styles = theme => ({
 });
 
 function StepIcon(props) {
-  const { completed, icon, active, classes, theme } = props;
+  const { completed, icon, active, classes } = props;
   const iconType = typeof icon;
 
   if (iconType === 'number' || iconType === 'string') {
     if (completed) {
       return <CheckCircle className={classNames(classes.root, classes.completed)} />;
     }
-    return <StepPositionIcon theme={theme} position={icon} active={active} />;
+    return <StepPositionIcon position={icon} active={active} />;
   }
 
   return icon;
@@ -45,10 +45,6 @@ StepIcon.propTypes = {
    * The icon displayed by the step label.
    */
   icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
-  /**
-   * Components theme
-   */
-  theme: PropTypes.object,
 };
 
 export default withStyles(styles)(StepIcon);
