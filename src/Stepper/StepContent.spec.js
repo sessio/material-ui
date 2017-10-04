@@ -1,52 +1,56 @@
+// @flow weak
 /* eslint-env mocha */
 import React from 'react';
-import {shallow} from 'enzyme';
-import {assert} from 'chai';
+import { assert } from 'chai';
+import { createShallow, createMount } from '../test-utils';
 import StepContent from './StepContent';
-import getMuiTheme from '../styles/getMuiTheme';
+import Collapse from '../transitions/Collapse';
 
 describe('<StepContent />', () => {
-  const muiTheme = getMuiTheme();
-  const shallowWithContext = (node, context = {}) => {
-    return shallow(node, {
-      context: {
-        muiTheme,
-        stepper: {orientation: 'vertical'},
-        ...context,
-      },
-    });
+  let shallow;
+  let mount;
+  const defaultProps = {
+    orientation: 'vertical',
   };
 
+  before(() => {
+    shallow = createShallow({ dive: true });
+    mount = createMount();
+  });
+
+  after(() => {
+    mount.cleanUp();
+  });
+
   it('renders a div', () => {
-    const wrapper = shallowWithContext(
-      <StepContent />
-    );
+    const wrapper = shallow(<StepContent {...defaultProps} />);
     assert.ok(wrapper.is('div'));
   });
 
   it('merges styles and other props into the root node', () => {
-    const wrapper = shallowWithContext(
+    const wrapper = shallow(
       <StepContent
-        style={{paddingRight: 200, color: 'purple', border: '1px solid tomato'}}
+        style={{ paddingRight: 200, color: 'purple', border: '1px solid tomato' }}
         role="hello"
-      />
+        {...defaultProps}
+      />,
     );
-    const {style, role} = wrapper.props();
+    const { style, role } = wrapper.props();
     assert.strictEqual(style.paddingRight, 200);
     assert.strictEqual(style.color, 'purple');
     assert.strictEqual(style.border, '1px solid tomato');
     assert.strictEqual(role, 'hello');
   });
 
-  it('renders children inside an ExpandTransition group', () => {
-    const wrapper = shallowWithContext(
-      <StepContent>
+  it('renders children inside an Collapse component', () => {
+    const wrapper = shallow(
+      <StepContent {...defaultProps}>
         <div className="test-content">This is my content!</div>
-      </StepContent>
+      </StepContent>,
     );
-    const transitionGroup = wrapper.find('ExpandTransition');
-    assert.ok(transitionGroup.length);
-    const content = transitionGroup.find('.test-content');
+    const collapse = wrapper.find(Collapse);
+    assert.ok(collapse.length);
+    const content = collapse.find('.test-content');
     assert.ok(content.length);
     assert.strictEqual(content.props().children, 'This is my content!');
   });

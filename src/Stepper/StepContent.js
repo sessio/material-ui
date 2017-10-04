@@ -33,6 +33,7 @@ function StepContent(props) {
     transitionDuration,
     orientation,
     optional, // eslint-disable-line no-unused-vars
+    ...other
   } = props;
 
   if (orientation !== 'vertical') {
@@ -58,7 +59,7 @@ function StepContent(props) {
   };
 
   return (
-    <div className={className}>{React.createElement(transition, transitionProps, children)}</div>
+    <div className={className} {...other}>{React.createElement(transition, transitionProps, children)}</div>
   );
 }
 
@@ -106,7 +107,7 @@ StepContent.propTypes = {
    */
   transition: PropTypes.func,
   /**
-   * Adjust the duration of the content expand transition. 
+   * Adjust the duration of the content expand transition.
    * Passed as a prop to the transition component.
    */
   transitionDuration: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
