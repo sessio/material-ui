@@ -1,13 +1,15 @@
-// @flow weak
+// @flow
+// @inheritedComponent Paper
 
 import React, { Children } from 'react';
-import PropTypes from 'prop-types';
+import type { Element, Node, ChildrenArray } from 'react';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import Paper from '../Paper';
 import StepConnector from './StepConnector';
+import Step from './Step';
 
-export const styles = theme => ({
+export const styles = (theme: Object) => ({
   root: {
     display: 'flex',
     padding: theme.spacing.unit * 3,
@@ -22,7 +24,54 @@ export const styles = theme => ({
   },
 });
 
-function Stepper(props) {
+export type Orientation = 'horizontal' | 'vertical';
+
+type ProvidedProps = {
+  activeStep: number,
+  alternativeLabel: boolean,
+  classes: Object,
+  connector: Element<any>,
+  nonLinear: boolean,
+  orientation: Orientation,
+};
+
+export type Props = {
+  /**
+   * Set the active step (zero based index).
+   */
+  activeStep?: number,
+  /**
+   * If set to 'true' and orientation is horizontal,
+   * then the step label will be positioned under the icon.
+   */
+  alternativeLabel?: boolean,
+  /**
+   * Two or more `<Step />` components.
+   */
+  children: ChildrenArray<Element<typeof Step>>,
+  /**
+   * Useful to extend the style applied to components.
+   */
+  classes?: Object,
+  /**
+   * @ignore
+   */
+  className?: string,
+  /**
+   * A component to be placed between each step.
+   */
+  connector?: Element<typeof StepConnector> | Node,
+  /**
+   * If set the `Stepper` will not assist in controlling steps for linear flow
+   */
+  nonLinear?: boolean,
+  /**
+   * The stepper orientation (layout flow direction)
+   */
+  orientation?: Orientation,
+};
+
+function Stepper(props: ProvidedProps & Props) {
   const {
     activeStep,
     alternativeLabel,
@@ -47,6 +96,12 @@ function Stepper(props) {
     const controlProps = {
       index,
       orientation,
+      active: false,
+      completed: false,
+      disabled: false,
+      last: index + 1 === numChildren,
+      alternativeLabel,
+      connector: connectorProp,
     };
 
     if (activeStep === index) {
@@ -55,15 +110,6 @@ function Stepper(props) {
       controlProps.completed = true;
     } else if (!nonLinear && activeStep < index) {
       controlProps.disabled = true;
-    }
-
-    if (index + 1 === numChildren) {
-      controlProps.last = true;
-    }
-
-    if (alternativeLabel) {
-      controlProps.alternativeLabel = true;
-      controlProps.connector = connectorProp;
     }
 
     return [
@@ -78,42 +124,6 @@ function Stepper(props) {
     </Paper>
   );
 }
-
-Stepper.propTypes = {
-  /**
-   * Set the active step (zero based index).
-   */
-  activeStep: PropTypes.number,
-  /**
-   * If set to 'true' and orientation is horizontal, 
-   * then the step label will be positioned under the icon.
-   */
-  alternativeLabel: PropTypes.bool,
-  /**
-   * Two or more `<Step />` components.
-   */
-  children: PropTypes.node,
-  /**
-   * Useful to extend the style applied to components.
-   */
-  classes: PropTypes.object.isRequired,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * A component to be placed between each step.
-   */
-  connector: PropTypes.node,
-  /**
-   * If set the `Stepper` will not assist in controlling steps for linear flow
-   */
-  nonLinear: PropTypes.bool,
-  /**
-   * The stepper orientation (layout flow direction)
-   */
-  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
-};
 
 Stepper.defaultProps = {
   activeStep: 0,

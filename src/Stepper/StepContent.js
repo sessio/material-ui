@@ -1,13 +1,13 @@
-// @flow weak
+// @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import warning from 'warning';
 import classNames from 'classnames';
 import Collapse from '../transitions/Collapse';
 import withStyles from '../styles/withStyles';
+import type { Orientation } from './Stepper';
 
-export const styles = theme => ({
+export const styles = (theme: Object) => ({
   root: {
     marginTop: theme.spacing.unit,
     marginLeft: 12, // half icon
@@ -20,7 +20,71 @@ export const styles = theme => ({
   },
 });
 
-function StepContent(props) {
+export type TransitionDuration = number | 'auto';
+
+type ProvidedProps = {
+  active: boolean,
+  alternativeLabel: boolean,
+  classes: Object,
+  last: boolean,
+  optional: boolean,
+  orientation: Orientation,
+  transition: Function,
+  transitionDuration: TransitionDuration,
+};
+
+export type Props = {
+  /**
+   * @ignore
+   * Expands the content
+   */
+  active?: boolean,
+  /**
+   * @ignore
+   * Set internally by Step when it's supplied with the alternativeLabel prop.
+   */
+  alternativeLabel?: boolean,
+  /**
+   * Step content
+   */
+  children: Node,
+  /**
+   * @ignore
+   */
+  classes?: Object,
+  /**
+   * @ignore
+   */
+  className?: string,
+  /**
+   * @ignore
+   */
+  completed?: boolean,
+  /**
+   * @ignore
+   */
+  last?: boolean,
+  /**
+   * @ignore
+   * Set internally by Step when it's supplied with the optional prop.
+   */
+  optional?: boolean,
+  /**
+   * @ignore
+   */
+  orientation?: Orientation,
+  /**
+   * Collapse component.
+   */
+  transition?: Function,
+  /**
+   * Adjust the duration of the content expand transition.
+   * Passed as a prop to the transition component.
+   */
+  transitionDuration: TransitionDuration,
+};
+
+function StepContent(props: ProvidedProps & Props) {
   const {
     active,
     alternativeLabel, // eslint-disable-line no-unused-vars
@@ -59,59 +123,11 @@ function StepContent(props) {
   };
 
   return (
-    <div className={className} {...other}>{React.createElement(transition, transitionProps, children)}</div>
+    <div className={className} {...other}>
+      {React.createElement(transition, transitionProps, children)}
+    </div>
   );
 }
-
-StepContent.propTypes = {
-  /**
-   * Expands the content
-   */
-  active: PropTypes.bool,
-  /**
-   * @ignore
-   * Set internally by Step when it's supplied with the alternativeLabel prop.
-   */
-  alternativeLabel: PropTypes.bool,
-  /**
-   * Step content
-   */
-  children: PropTypes.node,
-  /**
-   * Useful to extend the style applied to the component.
-   */
-  classes: PropTypes.object.isRequired,
-  /**
-   * @ignore
-   */
-  className: PropTypes.string,
-  /**
-   * @ignore
-   */
-  completed: PropTypes.bool,
-  /**
-   * @ignore
-   */
-  last: PropTypes.bool,
-  /**
-   * @ignore
-   * Set internally by Step when it's supplied with the optional prop.
-   */
-  optional: PropTypes.bool,
-  /**
-   * @ignore
-   */
-  orientation: PropTypes.oneOf(['vertical']).isRequired,
-  /**
-   * Collapse component.
-   */
-  transition: PropTypes.func,
-  /**
-   * Adjust the duration of the content expand transition.
-   * Passed as a prop to the transition component.
-   */
-  transitionDuration: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-};
 
 StepContent.defaultProps = {
   transition: Collapse,

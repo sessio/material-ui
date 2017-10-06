@@ -1,20 +1,46 @@
-// @flow weak
+// @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CheckCircle from '../svg-icons/CheckCircle';
 import withStyles from '../styles/withStyles';
 import StepPositionIcon from './StepPositionIcon';
+import type { Icon } from './StepButton';
 
-export const styles = theme => ({
+export const styles = (theme: Object) => ({
   root: {},
   completed: {
     fill: theme.palette.primary[500],
   },
 });
 
-function StepIcon(props) {
+type ProvidedProps = {
+  active: boolean,
+  classes: Object,
+  completed: boolean,
+  icon: Icon,
+};
+
+export type Props = {
+  /**
+   * Whether this step is active.
+   */
+  active?: boolean,
+  /**
+   * Classses for component style customizations.
+   */
+  classes?: Object,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   */
+  completed?: boolean,
+  /**
+   * The icon displayed by the step label.
+   */
+  icon?: Icon,
+};
+
+function StepIcon(props: ProvidedProps & Props) {
   const { completed, icon, active, classes } = props;
   const iconType = typeof icon;
 
@@ -27,24 +53,5 @@ function StepIcon(props) {
 
   return icon;
 }
-
-StepIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   */
-  active: PropTypes.bool,
-  /**
-   * Classses for component style customizations.
-   */
-  classes: PropTypes.object,
-  /**
-   * Mark the step as completed. Is passed to child components.
-   */
-  completed: PropTypes.bool,
-  /**
-   * The icon displayed by the step label.
-   */
-  icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.number]),
-};
 
 export default withStyles(styles)(StepIcon);

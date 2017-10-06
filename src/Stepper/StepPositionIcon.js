@@ -1,12 +1,12 @@
-// @flow weak
+// @flow
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import SvgIcon from '../SvgIcon';
+import type { Icon } from './StepButton';
 
-export const styles = theme => ({
+export const styles = (theme: Object) => ({
   root: {
     fill: theme.palette.action.disabled,
     display: 'block',
@@ -20,7 +20,28 @@ export const styles = theme => ({
   },
 });
 
-function StepPositionIcon(props) {
+type ProvidedProps = {
+  active: boolean,
+  classes: Object,
+  position: Icon,
+};
+
+export type Props = {
+  /**
+   * Whether this step is active.
+   */
+  active?: boolean,
+  /**
+   * Classses for component style customizations.
+   */
+  classes: Object,
+  /**
+   * The step position as a number.
+   */
+  position?: Icon,
+};
+
+function StepPositionIcon(props: ProvidedProps & Props) {
   const { position, classes, active } = props;
 
   const className = classNames(classes.root, {
@@ -36,20 +57,5 @@ function StepPositionIcon(props) {
     </SvgIcon>
   );
 }
-
-StepPositionIcon.propTypes = {
-  /**
-   * Whether this step is active.
-   */
-  active: PropTypes.bool,
-  /**
-   * Classses for component style customizations.
-   */
-  classes: PropTypes.object,
-  /**
-   * The step position as a number.
-   */
-  position: PropTypes.number.isRequired,
-};
 
 export default withStyles(styles)(StepPositionIcon);

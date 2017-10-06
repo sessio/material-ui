@@ -23,7 +23,7 @@ describe('<StepContent />', () => {
   });
 
   it('renders a div', () => {
-    const wrapper = shallow(<StepContent {...defaultProps} />);
+    const wrapper = shallow(<StepContent {...defaultProps}>Here is the content</StepContent>);
     assert.ok(wrapper.is('div'));
   });
 
@@ -31,15 +31,17 @@ describe('<StepContent />', () => {
     const wrapper = shallow(
       <StepContent
         style={{ paddingRight: 200, color: 'purple', border: '1px solid tomato' }}
-        role="hello"
+        role="Tabpanel"
         {...defaultProps}
-      />,
+      >
+        Lorem ipsum
+      </StepContent>,
     );
     const { style, role } = wrapper.props();
     assert.strictEqual(style.paddingRight, 200);
     assert.strictEqual(style.color, 'purple');
     assert.strictEqual(style.border, '1px solid tomato');
-    assert.strictEqual(role, 'hello');
+    assert.strictEqual(role, 'Tabpanel');
   });
 
   it('renders children inside an Collapse component', () => {

@@ -10,7 +10,6 @@ describe('<StepPositionIcon />', () => {
   let shallow;
   let mount;
   before(() => {
-
     shallow = createShallow({ dive: true });
     mount = createMount();
   });

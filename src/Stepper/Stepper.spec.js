@@ -22,13 +22,21 @@ describe('<Stepper />', () => {
   });
 
   it('merges user className into the root node', () => {
-    const wrapper = shallow(<Stepper className="foo" />);
+    const wrapper = shallow(
+      <Stepper className="foo">
+        <Step />
+      </Stepper>,
+    );
 
     assert.include(wrapper.props().className, 'foo');
   });
 
   it('should render a Paper component', () => {
-    const wrapper = shallow(<Stepper />);
+    const wrapper = shallow(
+      <Stepper>
+        <Step />
+      </Stepper>,
+    );
     assert.strictEqual(wrapper.name(), 'withStyles(Paper)');
     assert.strictEqual(wrapper.props().elevation, 0, 'should have no elevation');
   });
@@ -103,8 +111,8 @@ describe('<Stepper />', () => {
       );
 
       const steps = wrapper.children().find('div');
-      assert.strictEqual(steps.at(0).props().last, undefined);
-      assert.strictEqual(steps.at(1).props().last, undefined);
+      assert.strictEqual(steps.at(0).props().last, false);
+      assert.strictEqual(steps.at(1).props().last, false);
       assert.strictEqual(steps.at(2).props().last, true);
     });
   });

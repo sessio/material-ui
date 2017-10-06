@@ -23,7 +23,11 @@ describe('<StepButton />', () => {
   });
 
   it('merges user className into the root node', () => {
-    const wrapper = shallow(<StepButton className="foo" {...defaultProps} />);
+    const wrapper = shallow(
+      <StepButton className="foo" {...defaultProps}>
+        Hello
+      </StepButton>,
+    );
 
     assert.include(wrapper.props().className, 'foo');
   });

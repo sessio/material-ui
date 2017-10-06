@@ -26,7 +26,9 @@ describe('<StepLabel />', () => {
         orientation="horizontal"
         style={{ paddingRight: 200, color: 'purple', border: '1px solid tomato' }}
         data-myProp="hello"
-      />,
+      >
+        My Label
+      </StepLabel>,
     );
     const props = wrapper.props();
     assert.strictEqual(props.style.paddingRight, 200);
