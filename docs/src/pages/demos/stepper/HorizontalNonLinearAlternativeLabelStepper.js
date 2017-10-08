@@ -23,7 +23,7 @@ const styles = theme => ({
   instructions: {
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
-  }
+  },
 });
 
 class HorizontalNonLinearAlternativeLabelStepper extends Component {
@@ -62,7 +62,7 @@ class HorizontalNonLinearAlternativeLabelStepper extends Component {
   }
 
   handleSkip = () => {
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
     if (!this.isStepOptional(activeStep)) {
       // You probably want to guard against something like this
       // it should never occur unless someone's actively trying to break something.
@@ -150,9 +150,9 @@ class HorizontalNonLinearAlternativeLabelStepper extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
+    const { classes } = this.props;
     const steps = this.getSteps();
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
 
     let stepKey = 0;
 
@@ -180,12 +180,16 @@ class HorizontalNonLinearAlternativeLabelStepper extends Component {
         <div>
           {this.allStepsCompleted() ? (
             <div>
-              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
+              <Typography className={classes.instructions}>
+                All steps completed - you&quot;re finished
+              </Typography>
               <Button onClick={this.handleReset}>Reset</Button>
             </div>
           ) : (
             <div>
-              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
+              <Typography className={classes.instructions}>
+                {this.getStepContent(activeStep)}
+              </Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}

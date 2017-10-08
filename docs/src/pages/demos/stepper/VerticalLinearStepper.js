@@ -70,9 +70,9 @@ class VerticalLinearStepper extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
+    const { classes } = this.props;
     const steps = this.getSteps();
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
     let stepKey = 0;
 
     return (

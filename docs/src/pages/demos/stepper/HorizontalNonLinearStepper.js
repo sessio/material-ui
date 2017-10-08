@@ -62,8 +62,9 @@ class HorizontalNonLinearStepper extends Component {
   };
 
   handleBack = () => {
+    const { activeStep } = this.state;
     this.setState({
-      activeStep: this.state.activeStep - 1,
+      activeStep: activeStep - 1,
     });
   };
 
@@ -74,7 +75,7 @@ class HorizontalNonLinearStepper extends Component {
   };
 
   handleComplete = () => {
-    const completed = this.state.completed;
+    const { completed } = this.state;
     completed[this.state.activeStep] = true;
     this.setState({
       completed,
@@ -107,9 +108,9 @@ class HorizontalNonLinearStepper extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
+    const { classes } = this.props;
     const steps = this.getSteps();
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
     let stepKey = 0;
 
     return (
@@ -129,12 +130,16 @@ class HorizontalNonLinearStepper extends Component {
         <div>
           {this.allStepsCompleted() ? (
             <div>
-              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
+              <Typography className={classes.instructions}>
+                All steps completed - you&quot;re finished
+              </Typography>
               <Button onClick={this.handleReset}>Reset</Button>
             </div>
           ) : (
             <div>
-              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
+              <Typography className={classes.instructions}>
+                {this.getStepContent(activeStep)}
+              </Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}

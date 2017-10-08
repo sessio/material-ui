@@ -5,7 +5,6 @@ import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import SvgIcon from '../SvgIcon';
 import type { Icon } from './StepButton';
-import Typography from '../Typography';
 
 export const styles = (theme: Object) => ({
   root: {

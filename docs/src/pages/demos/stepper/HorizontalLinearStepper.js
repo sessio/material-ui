@@ -39,26 +39,27 @@ class HorizontalLinearStepper extends Component {
   }
 
   handleNext = () => {
-    const activeStep = this.state.activeStep;
-    let skipped = this.state.skipped;
+    const { activeStep } = this.state;
+    let { skipped } = this.state;
     if (this.isStepSkipped(activeStep)) {
       skipped = new Set(skipped.values());
       skipped.delete(activeStep);
     }
     this.setState({
-      activeStep: this.state.activeStep + 1,
+      activeStep: activeStep + 1,
       skipped,
     });
   };
 
   handleBack = () => {
+    const { activeStep } = this.state;
     this.setState({
-      activeStep: this.state.activeStep - 1,
+      activeStep: activeStep - 1,
     });
   };
 
   handleSkip = () => {
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
     if (!this.isStepOptional(activeStep)) {
       // You probably want to guard against something like this,
       // it should never occur unless someone's actively trying to break something.
@@ -96,9 +97,9 @@ class HorizontalLinearStepper extends Component {
   };
 
   render() {
-    const classes = this.props.classes;
+    const { classes } = this.props;
     const steps = this.getSteps();
-    const activeStep = this.state.activeStep;
+    const { activeStep } = this.state;
 
     let stepKey = 0;
 
@@ -124,14 +125,18 @@ class HorizontalLinearStepper extends Component {
         <div>
           {activeStep === steps.length ? (
             <div>
-              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
+              <Typography className={classes.instructions}>
+                All steps completed - you&quot;re finished
+              </Typography>
               <Button onClick={this.handleReset} className={classes.button}>
                 Reset
               </Button>
             </div>
           ) : (
             <div>
-              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
+              <Typography className={classes.instructions}>
+                {this.getStepContent(activeStep)}
+              </Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}
