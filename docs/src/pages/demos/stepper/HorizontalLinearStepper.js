@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { Step, Stepper, StepLabel } from 'material-ui/Stepper';
 import Button from 'material-ui/Button';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
@@ -12,6 +13,10 @@ const styles = theme => ({
   },
   button: {
     marginRight: theme.spacing.unit,
+  },
+  instructions: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
   },
 });
 
@@ -119,14 +124,14 @@ class HorizontalLinearStepper extends Component {
         <div>
           {activeStep === steps.length ? (
             <div>
-              <p>All steps completed - you&quot;re finished</p>
+              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
               <Button onClick={this.handleReset} className={classes.button}>
                 Reset
               </Button>
             </div>
           ) : (
             <div>
-              <p>{this.getStepContent(activeStep)}</p>
+              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}

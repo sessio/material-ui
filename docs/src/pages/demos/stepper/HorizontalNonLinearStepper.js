@@ -17,6 +17,10 @@ const styles = theme => ({
   completed: {
     display: 'inline-block',
   },
+  instructions: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 class HorizontalNonLinearStepper extends Component {
@@ -125,12 +129,12 @@ class HorizontalNonLinearStepper extends Component {
         <div>
           {this.allStepsCompleted() ? (
             <div>
-              <p>All steps completed - you&quot;re finished</p>
+              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
               <Button onClick={this.handleReset}>Reset</Button>
             </div>
           ) : (
             <div>
-              <p>{this.getStepContent(activeStep)}</p>
+              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}

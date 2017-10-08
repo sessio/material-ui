@@ -20,6 +20,10 @@ const styles = theme => ({
   completed: {
     display: 'inline-block',
   },
+  instructions: {
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  }
 });
 
 class HorizontalNonLinearAlternativeLabelStepper extends Component {
@@ -111,8 +115,8 @@ class HorizontalNonLinearAlternativeLabelStepper extends Component {
       completed,
     });
     /**
-     * Sigh... it would be much nicer to replace the following if conditional with 
-     * `if (!this.allStepsComplete())` however state is not set when we do this, 
+     * Sigh... it would be much nicer to replace the following if conditional with
+     * `if (!this.allStepsComplete())` however state is not set when we do this,
      * thus we have to resort to not being very DRY.
      */
     if (completed.size !== this.totalSteps() - this.skippedSteps()) {
@@ -176,12 +180,12 @@ class HorizontalNonLinearAlternativeLabelStepper extends Component {
         <div>
           {this.allStepsCompleted() ? (
             <div>
-              <p>All steps completed - you&quot;re finished</p>
+              <Typography className={classes.instructions}>All steps completed - you&quot;re finished</Typography>
               <Button onClick={this.handleReset}>Reset</Button>
             </div>
           ) : (
             <div>
-              <p>{this.getStepContent(activeStep)}</p>
+              <Typography className={classes.instructions}>{this.getStepContent(activeStep)}</Typography>
               <div>
                 <Button
                   disabled={activeStep === 0}
