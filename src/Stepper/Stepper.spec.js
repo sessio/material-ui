@@ -1,6 +1,5 @@
-// @flow weak
+/* eslint-disable flowtype/require-valid-file-annotation */
 /* eslint-env mocha */
-
 import React from 'react';
 import { assert } from 'chai';
 import { createShallow, createMount } from '../test-utils';
