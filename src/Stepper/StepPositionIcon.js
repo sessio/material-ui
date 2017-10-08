@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import withStyles from '../styles/withStyles';
 import SvgIcon from '../SvgIcon';
 import type { Icon } from './StepButton';
+import Typography from '../Typography';
 
 export const styles = (theme: Object) => ({
   root: {
@@ -14,6 +15,7 @@ export const styles = (theme: Object) => ({
   text: {
     fill: theme.palette.getContrastText(theme.palette.primary[500]),
     fontSize: theme.typography.caption.fontSize,
+    fontFamily: theme.typography.fontFamily,
   },
   active: {
     fill: theme.palette.primary[500],
