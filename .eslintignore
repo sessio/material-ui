@@ -4,6 +4,7 @@ node_modules
 coverage
 /.next
 /next.config.js
+/docs/build
 /docs/src/modules/utils/find.js
 /docs/export
 flow
