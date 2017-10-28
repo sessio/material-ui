@@ -2,8 +2,8 @@
   "name": "material-ui-build-next",
   "private": true,
   "author": "Material-UI Team",
-  "version": "1.0.0-beta.18",
-  "description": "Material Design UI components built with React",
+  "version": "1.0.0-beta.18+patched",
+  "description": "Material Design UI components built with React, patched with Stepper component",
   "main": "./src/index.js",
   "keywords": [
     "react",
@@ -14,6 +14,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/callemall/material-ui.git"
+  },
+  "publishConfig": {
+    "registry": "https://repo.reliff.fi/repositories/npm"
   },
   "license": "MIT",
   "bugs": {
